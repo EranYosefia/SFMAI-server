@@ -1,1 +1,1 @@
-//hello dor
+print("hello");
