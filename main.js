@@ -1,5 +1,6 @@
 const express = require("express");
 const customersRouter = require("./routers/customers");
+const accountRouter = require("./routers/account");
 
 const cors = require("cors");
 
@@ -14,6 +15,7 @@ const port = 8080;
 require("./configs/database");
 
 app.use("/customers", customersRouter);
+app.use("/account", accountRouter);
 
 app.listen(port, () => {
   console.log(`Started on port ${port}`);

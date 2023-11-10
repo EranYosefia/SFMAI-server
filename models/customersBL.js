@@ -1,11 +1,11 @@
-const customerModel = require("./customerModel");
+const Customer = require("./customerModel");
 
 const getCustomers = async function () {
-  return await customerModel.find({});
+  return await Customer.find({});
 };
 
-const createCustomer = async function (user) {
-  const newCustomer = await customerModel.create(user);
+const createCustomer = async function (customer) {
+  const newCustomer = await Customer.create(customer);
   newCustomer.save();
 };
 

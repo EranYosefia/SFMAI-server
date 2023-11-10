@@ -19,4 +19,8 @@ router.post("/addNewCustomer", async (req, res) => {
   }
 });
 
+// router.delete("/removeCustomer", async (req, res) => {
+
+// })
+
 module.exports = router;
