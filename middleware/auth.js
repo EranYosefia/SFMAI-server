@@ -3,12 +3,14 @@ const jwt = require("jsonwebtoken");
 function authValidation(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, email) => {
+  if (token == null) return res.status(401).json({ message: "Token is not found" });
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, business_number) => {
     if (err) {
-      return res.sendStatus(403);
+      return res.status(403).json({ message: "Wrong token" });
     }
-    req.user = email;
+    req.account = business_number;
     next();
   });
 }
+
+module.exports = authValidation;

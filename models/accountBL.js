@@ -1,15 +1,15 @@
 const { Account, NewAccountValidate } = require("./accountModel");
-const { ObjectId } = require("mongodb");
 const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const saltRounds = 10;
 
-const registration = async function (account) {
+const handleRegister = async function (account) {
   NewAccountValidate(account);
 
   const { password, email, business_number, business_name } = account;
 
-  const found_email = await Account.findOne({ email: email });
+  const found_email = await Account.findOne({ email });
   if (found_email) throw new Error("Account already exist.");
 
   const found_business_number = await Account.findOne({
@@ -32,4 +32,14 @@ const registration = async function (account) {
   });
 };
 
-module.exports = { registration };
+const handleLogin = async function (business_number, password) {
+  if (!business_number || !password) throw new Error('Email or password not found');
+  const account = await Account.findOne({ business_number });
+  if (!account) throw new Error(`Account [${business_number}] not found`);
+  const isValid = await bcryptjs.compare(password, account.password);
+  if (!isValid) throw new Error('Password is incorrect');
+  const accountToken = {business_number: business_number}
+  return jwt.sign(accountToken, process.env.ACCESS_TOKEN_SECRET)
+};
+
+module.exports = { handleRegister, handleLogin };

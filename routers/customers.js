@@ -1,14 +1,16 @@
 const express = require("express");
 const customersBL = require("../models/customersBL");
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/getCustomers", async (req, res) => {
-  const customers = await customersBL.getCustomers();
+router.get("/getCustomers", auth, async (req, res) => {
+  console.log(req.account.business_number)
+  const customers = await customersBL.getCustomers(req.account.business_number);
   return res.json(customers);
 });
 
-router.post("/addNewCustomer", async (req, res) => {
+router.post("/addNewCustomer", auth, async (req, res) => {
   const user = req.body;
   console.log(user);
   try {
@@ -19,7 +21,7 @@ router.post("/addNewCustomer", async (req, res) => {
   }
 });
 
-// router.delete("/removeCustomer", async (req, res) => {
+// router.delete("/removeCustomer", auth, async (req, res) => {
 
 // })
 
