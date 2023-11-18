@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const AccountSchema = new mongoose.Schema({
-  business_number: { type: String, required: true, unique: true },
+  login_id: { type: String, required: true, unique: true },
+  account_id: { type: String, required: true },
   password: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  business_name: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
+  amount_of_stations: { type: Number, required: true },
+  business_name: { type: String, required: true },
   city: String,
   street: String,
   postal_code: String,
@@ -13,7 +15,10 @@ const AccountSchema = new mongoose.Schema({
 });
 
 const NewAccountSchema = Joi.object({
-  business_number: Joi.string()
+  login_id: Joi.string()
+  .min(6)
+  .max(30),
+  account_id: Joi.string()
     .regex(/[0-9]{3,30}/)
     .required(),
   password: Joi.string()

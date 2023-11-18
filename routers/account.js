@@ -15,8 +15,8 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { business_number, password } = req.body;
-    const accessToken = await accountBL.handleLogin(business_number, password);
+    const { login_id, password } = req.body;
+    const accessToken = await accountBL.handleLogin(login_id, password);
     console.log(accessToken)
     res.status(200).json({ accessToken: accessToken, message: `logged in successfully` });
   } catch (error) {
