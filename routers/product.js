@@ -57,11 +57,11 @@ router.post("/addAccountProduct", auth, async (req, res) => {
     }
     })
 
-  router.put("/updateCustomerProduct/:product_id" , auth, async (req, res) => {
+  router.put("/updateCustomerProduct/:_id" , auth, async (req, res) => {
     const updateProduct = req.body
-    const {product_id} = req.params
+    const {_id} = req.params
     try{
-      await productBL.updateCustomerProduct(req.account_id, product_id, updateProduct );
+      await productBL.updateCustomerProduct(req.account_id, _id, updateProduct );
       res.status(201).json({message : `Customer Product ${updateProduct.name} Updated successfully`})
     } catch (error) {
       res.status(400).json({message: error.message})

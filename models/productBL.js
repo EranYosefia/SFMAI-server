@@ -44,8 +44,8 @@ const updateAccountProduct = async function (account_id, serial_number, updatePr
     }
 }
 
-const updateCustomerProduct = async function (account_id, product_id, updateProduct  ) {
-    const updatedProduct = await Product.findOneAndUpdate ({"account_id": account_id, "_id": product_id}, updateProduct)
+const updateCustomerProduct = async function (account_id, _id, updateProduct ) {
+    const updatedProduct = await Product.findOneAndUpdate ({"account_id": account_id, "_id": _id}, updateProduct)
     if (!updatedProduct){
         throw new Error(`Product ${product_id} does not found`)
     }

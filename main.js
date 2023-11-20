@@ -2,6 +2,9 @@ const express = require("express");
 const customerRouter = require("./routers/customer");
 const accountRouter = require("./routers/account");
 const productRouter = require("./routers/product");
+const carRouter = require("./routers/car");
+const driverRouter = require("./routers/driver");
+
 require("dotenv").config();
 
 const cors = require("cors");
@@ -19,6 +22,8 @@ require("./configs/database");
 app.use("/customer", customerRouter);
 app.use("/account", accountRouter);
 app.use("/product", productRouter);
+app.use("/car", carRouter);
+app.use("/driver", driverRouter);
 
 app.listen(port, () => {
   console.log(`Started on port ${port}`);

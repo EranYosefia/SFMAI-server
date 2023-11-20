@@ -23,7 +23,7 @@ router.post("/addNewCustomer", auth, async (req, res) => {
 });
 
 router.delete("/deleteCustomer/:customer_id" , auth, async (req, res) => {
-  const customer_id = req.params.customer_id
+  const {customer_id} = req.params
   try {
     const deleted_customer = await customerBL.deleteCustomer(customer_id, req.account_id);
     res.status(201).json({ message: `Customer ${deleted_customer.name} deleted successfully`})
@@ -34,7 +34,7 @@ router.delete("/deleteCustomer/:customer_id" , auth, async (req, res) => {
 
 
 router.put("/updateCustomer/:customer_id" , auth, async (req, res) => {
-  const customer_id = req.params.customer_id
+  const {customer_id} = req.params
   const update_customer = req.body
   try{
     const updated_customer = await customerBL.updateCustomer(customer_id, update_customer, req.account_id);
